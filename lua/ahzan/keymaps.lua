@@ -34,7 +34,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>tt', ':Neotree<CR>', opts)
 
 --colorscheme mapping
-vim.keymap.set("n", "<leader>ts", ':CyberdreamToggleMode<CR>',  { desc = 'Theme switch' })
+-- vim.keymap.set("n", "<leader>ts", ':CyberdreamToggleMode<CR>',  { desc = 'Theme switch' })
 
 --enthooterminal mapping
 
@@ -52,8 +52,18 @@ local is_black_bg = true
 -- Define a function to toggle the background color
 local function toggle_bg()
     if is_black_bg then
-        vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+       -- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+    require("visual_studio_code").setup({
+      mode = "dark",
+    })
+
+      vim.cmd([[colorscheme visual_studio_code]])
     else
+        require("visual_studio_code").setup({
+      mode = "light",
+    })
+
+
         vim.cmd([[colorscheme visual_studio_code]])
     end
     is_black_bg = not is_black_bg
