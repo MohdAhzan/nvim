@@ -46,7 +46,7 @@ return {
     vim.cmd([[colorscheme visual_studio_code]])
     -- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
   end,
-} 
+}
 -- return {
 --   {
 --     'folke/tokyonight.nvim',
