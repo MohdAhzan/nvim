@@ -18,7 +18,7 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
 
 vim.keymap.set('n', '<C-p>', ':bprevious<CR>', opts)
 vim.keymap.set('n', '<C-n>', ':bnext<CR>', opts)
-vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', opts)
+vim.keymap.set('n', '<leader>bc', ':bdelete<CR>', opts)
  -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -45,7 +45,7 @@ vim.keymap.set('n', '<leader>tt', ':Neotree<CR>', opts)
   vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
   vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
   vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+  -- vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
   -- Initialize a variable to keep track of the current background state
 local is_black_bg = true
@@ -53,7 +53,6 @@ local is_black_bg = true
 -- Define a function to toggle the background color
 local function toggle_bg()
     if is_black_bg then
-       -- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
     require("visual_studio_code").setup({
       mode = "dark",
     })
@@ -61,15 +60,17 @@ local function toggle_bg()
       vim.cmd([[colorscheme visual_studio_code]])
     else
         require("visual_studio_code").setup({
-      mode = "light",
+      mode = "dark",
     })
 
 
-        vim.cmd([[colorscheme visual_studio_code]])
+        vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+        -- vim.cmd([[colorscheme visual_studio_code]])
     end
     is_black_bg = not is_black_bg
 end
 
 -- Set the keymap to call the toggle function
 vim.keymap.set('n', '<leader>st', toggle_bg, { noremap = true, silent = true })
-
+-- vim.keymap.set('n', '<leader>bg', vim.cmd.colorscheme 'bluloco'), opts?)
+-- vim.cmd.colorscheme 'bluloco'
