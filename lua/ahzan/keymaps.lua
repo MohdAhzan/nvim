@@ -2,6 +2,9 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = ' '
 
+--code Indent
+vim.keymap.set('n', 'III', 'ggVG=', opts)
+
 vim.keymap.set('v', '<leader>ff', ':Telescope', opts)
 vim.keymap.set('v', '<leader>tt', ':Neotree', opts)
 vim.keymap.set('v', '<C-C>', '"+y', opts)
@@ -18,8 +21,8 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
 
 vim.keymap.set('n', '<C-p>', ':bprevious<CR>', opts)
 vim.keymap.set('n', '<C-n>', ':bnext<CR>', opts)
-vim.keymap.set('n', '<leader>bc', ':bdelete<CR>', opts)
- -- Diagnostic keymaps
+vim.keymap.set('n', 'bc', ':bdelete<CR>', opts)
+-- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
@@ -38,37 +41,39 @@ vim.keymap.set('n', '<leader>tt', ':Neotree<CR>', opts)
 
 --enthooterminal mapping
 
-  vim.keymap.set('n', '<leader>tm', ':ToggleTerm<CR>', opts)
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-  -- vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+vim.keymap.set('n', '<leader>tm', ':ToggleTerm<CR>', opts)
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+-- vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+local themes = {
+    {name = "visual_studio_code", setup = {mode = "dark"}},
+    {name = "visual_studio_code", setup = {mode = "dark"}, custom_bg = true},
+    {name = "tokyonight", setup = {style = "night"}},
+    {name = "tokyonight", setup = {style = "night"},custom_bg = true},
+}
 
-  -- Initialize a variable to keep track of the current background state
-local is_black_bg = true
+local current_theme_index = 1
 
--- Define a function to toggle the background color
 local function toggle_bg()
-    if is_black_bg then
-    require("visual_studio_code").setup({
-      mode = "dark",
-    })
+    local theme = themes[current_theme_index]
 
-      vim.cmd([[colorscheme visual_studio_code]])
-    else
-        require("visual_studio_code").setup({
-      mode = "dark",
-    })
-
-
-        vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
-        -- vim.cmd([[colorscheme visual_studio_code]])
+    if theme.setup then
+        require(theme.name).setup(theme.setup)
     end
-    is_black_bg = not is_black_bg
+
+    if theme.custom_bg then
+        vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+    else
+        vim.cmd("colorscheme " .. theme.name)
+    end
+
+    current_theme_index = current_theme_index % #themes + 1
 end
+
 
 -- Set the keymap to call the toggle function
 vim.keymap.set('n', '<leader>st', toggle_bg, { noremap = true, silent = true })

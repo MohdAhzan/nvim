@@ -40,7 +40,7 @@ return {
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
       persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-      direction = 'vertical', -- 'vertical' | 'horizontal' | 'tab' | 'float'
+      direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
       close_on_exit = true, -- close the terminal window when the process exits
       -- Change the default shell. Can be a string or a function returning a string
       shell = vim.o.shell,
@@ -54,7 +54,7 @@ return {
         border = 'curved', -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
         -- like `size`, width, height, row, and col can be a number or function which is passed the current terminal
         width = 80,
-        height = 20,
+        height = 30,
         row = 0,
         col = 130,
         winblend = 3,
