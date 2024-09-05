@@ -75,9 +75,12 @@ local function toggle_bg()
     if theme.custom_bg then
         vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
     end
-  
-    vim.notify("Loaded " .. theme.name .. " theme", vim.log.levels.INFO)
-    current_theme_index = current_theme_index % #themes + 1
+    local th = themes[current_theme_index]
+    local mode = theme.setup.style or theme.setup.mode or "" -- Safely handle `style` or `mode`
+
+    vim.notify("Loaded " .. th.name .. " " .. mode .. " theme", vim.log.levels.INFO)
+
+  current_theme_index = current_theme_index % #themes + 1
 end
 
 
