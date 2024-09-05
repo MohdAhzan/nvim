@@ -13,7 +13,7 @@ return{
     })
 
     -- your optional config goes here, see below.
-      vim.cmd([[colorscheme bluloco]])
+      -- vim.cmd([[colorscheme bluloco]])
       -- vim.cmd([[colorscheme bluloco-dark]])
   end,
 }

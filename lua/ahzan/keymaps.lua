@@ -50,10 +50,15 @@ vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
 vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 -- vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 local themes = {
-    {name = "visual_studio_code", setup = {mode = "dark"}},
-    {name = "visual_studio_code", setup = {mode = "dark"}, custom_bg = true},
     {name = "tokyonight", setup = {style = "night"}},
     {name = "tokyonight", setup = {style = "night"},custom_bg = true},
+    {name = "visual_studio_code", setup = {mode = "dark"}, custom_bg = true},
+    {name = "visual_studio_code", setup = {mode = "dark"}},
+    {name = "bluloco", setup = {mode = "dark"}},
+    {name = "bluloco", setup = {mode = "dark"},custom_bg=true},
+    {name = "kanagawa", setup = {mode = "dragon"}},
+    {name = "kanagawa", setup = {mode = "dragon"},custom_bg=true},
+    {name = "kanagawa", setup = {mode = "lotus"},custom_bg=true},
 }
 
 local current_theme_index = 1
@@ -65,14 +70,17 @@ local function toggle_bg()
         require(theme.name).setup(theme.setup)
     end
 
+    vim.cmd("colorscheme " .. theme.name)
+
     if theme.custom_bg then
         vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
-    else
-        vim.cmd("colorscheme " .. theme.name)
     end
-
+  
+    vim.notify("Loaded " .. theme.name .. " theme", vim.log.levels.INFO)
     current_theme_index = current_theme_index % #themes + 1
 end
+
+
 
 
 -- Set the keymap to call the toggle function
